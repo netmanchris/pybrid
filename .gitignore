@@ -9,9 +9,3 @@
 
 .idea/modules.xml
 
-.idea/pyawair.iml
-
-pyawair/secret.py
-
-tests/secret.py
-tests/config.py
