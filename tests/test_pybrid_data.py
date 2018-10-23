@@ -32,3 +32,18 @@ class TestGetDeviceInfo(TestCase):
         data_points = ['Model', 'Serial Number', 'Manufacturer', 'Version']
         for data_point in dev_status.keys():
             self.assertIn(data_point, data_points)
+
+
+class TestGetHistory(TestCase):
+    """
+    Test pybrid.data.get_status function against live Brid device
+    """
+
+    def test_get_history(self):
+        """
+        Tests pybrid.data.get_history function against live Brid device
+        """
+        history = get_history(auth)
+        data_points = ['t', 'V', 'T', 'H', 'C']
+        for data_point in history[0].keys():
+            self.assertIn(data_point, data_points)
