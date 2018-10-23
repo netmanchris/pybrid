@@ -19,9 +19,10 @@ def get_history(auth):
     data = pybrid.conn.get_data(auth, base_url, data_url)
     return data
 
-
+"""
 Looks like 't' is time
 'V' is VoCs in ppm
 'T' is Temp in Celcius
 'H' is Humidity in %
 'C' is Co2 in ppm
+"""
