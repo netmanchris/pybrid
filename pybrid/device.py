@@ -1,6 +1,7 @@
 
 import requests, json
 from pybrid.conn import check_response
+from pybrid.data import *
 
 
 def get_device_info(auth):
@@ -10,7 +11,7 @@ def get_device_info(auth):
     return data
 
 
-def set_device_status(auth, mode):
+def set_device_mode(auth, mode):
     modes = {"off" : 0,
              'smart' : 1,
              'auto' : 2,
@@ -23,6 +24,22 @@ def set_device_status(auth, mode):
     response = requests.post(f_url, headers=auth.headers, json=data)
     check_response(response)
     return json.loads(response.text)
+
+
+def get_device_mode(auth):
+    status = get_status(auth)
+    modes = {
+        "off": 0,
+        'smart': 1,
+        'auto': 2,
+        'boost': 3,
+        'night': 4
+    }
+    for k,v in modes.items():
+        if status['Settings']['Mode'] == v:
+            return k
+
+
 
 
 
