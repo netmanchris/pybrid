@@ -1,6 +1,6 @@
 from unittest import TestCase
-from pybrid.auth import *
-from pybrid.data import *
+from pybridair.auth import *
+from pybridair.data import *
 
 auth = BridAuth('10.101.0.124')
 

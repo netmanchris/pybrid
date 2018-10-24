@@ -1,13 +1,13 @@
 
 import requests, json
-from pybrid.conn import check_response
-from pybrid.data import *
+from pybridair.conn import check_response
+from pybridair.data import *
 
 
 def get_device_info(auth):
     base_url = "http://" + str(auth.ipaddress)
     data_url = "/info"
-    data = pybrid.conn.get_data(auth, base_url, data_url)
+    data = pybridair.conn.get_data(auth, base_url, data_url)
     return data
 
 

@@ -1,17 +1,17 @@
 
-import pybrid.conn
+import pybridair.conn
 
 def get_status(auth):
     base_url = "http://" + str(auth.ipaddress)
     data_url = "/status"
-    data = pybrid.conn.get_data(auth, base_url, data_url)
+    data = pybridair.conn.get_data(auth, base_url, data_url)
     return data
 
 
 def get_history(auth):
     base_url = "http://" + str(auth.ipaddress)
     data_url = "/history"
-    data = pybrid.conn.get_data(auth, base_url, data_url)
+    data = pybridair.conn.get_data(auth, base_url, data_url)
     return data
 
 """
