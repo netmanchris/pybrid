@@ -29,7 +29,7 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/netmanchris/pyawair',
+    url='https://github.com/netmanchris/pybrid',
 
     # Author details
     author='netmanchris',

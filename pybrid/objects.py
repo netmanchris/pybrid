@@ -3,19 +3,19 @@
 # author: @netmanchris
 # -*- coding: utf-8 -*-
 
-import pyawair.data
-from pyawair.auth import AwairAuth
+import pybrid.data
+from pybrid.auth import BridAuth
 import datetime
 
 
-class AwairDev:
-    def __init__(self, device_name: str, auth: AwairAuth, cache_time: float = 15,
+class BridDev:
+    def __init__(self, ip_address: str, auth: BridAuth, cache_time: float = 15,
                  aggregate_type='15-minute'):
         """
         Initialise AwairDev object.
 
         :param device_name: The name of the device a can be found in the Awair app. Careful, case sensitive.
-        :param auth: The authentication object as created by the AwairAuth function.
+        :param auth: The authentication object as created by the BridAuth function.
         :param cache_time: The time in minutes that the state values should be cached. When this time has expired, new values
                            will be requested. Keep in mind that the API has daily limits so setting this too low might
                            cause problems.
@@ -30,20 +30,13 @@ class AwairDev:
             raise ValueError("The argument aggregate_type cannot have this value.")
         self._last_update = datetime.datetime.now()  # records the last update
 
-        self._device_name = device_name
+        self._ip_address = ip_address
 
         # Get device type and ID from name
-        devices = pyawair.data.get_all_devices(self._auth)
-        device_names = [d['name'] for d in devices]
-        if not device_name in device_names:
-            raise ValueError(
-                "This device name ({}) does not exist in your Awair account. Be aware that the device name is capital sensitive.".format(
-                    device_name))
+        device = pybrid.device.get_device_info(self._auth)
 
-        self._type = next((item for item in devices if item["name"] == device_name),
-                          False)['deviceType']  # get the device type
-        self._id = next((item for item in devices if item["name"] == device_name),
-                        False)['deviceId']  # get the device ID
+        self._type = device['Model']  # get the device type
+        self._serial = device['Serial Number']
 
         # Initiate data fields
         self._data = {}
@@ -82,13 +75,13 @@ class AwairDev:
         """
         return self._type
 
-    def id(self) -> str:
+    def serial(self) -> str:
         """
         Function to get the name of the device.
 
         :return: The name of the device.
         """
-        return self._id
+        return self._serial
 
     def refresh(self):
         """
@@ -99,20 +92,14 @@ class AwairDev:
         refresh.
         """
         if self._aggregate_type == 'current':
-            data: list = pyawair.data.get_current_air_data(self._auth, device_id=self._id,
-                                                           device_type=self._type)
+            data: list = pybrid.data.get_status(self._auth)
         elif self._aggregate_type == '5-minute':
-            data: list = pyawair.data.get_5_min_average(self._auth, device_id=self._id,
-                                                        device_type=self._type)
+            data: list = pybrid.data.get_status(self._auth)
         elif self._aggregate_type == '15-minute':
-            data: list = pyawair.data.get_15_min_average(self._auth, device_id=self._id,
-                                                         device_type=self._type)
+            data: list = pybrid.data.get_status(self._auth)
 
-        self._data['score'] = data[-1]['score']
-        self._data['temp'] = data[-1]['sensors'][0]['value']
-        self._data['humid'] = data[-1]['sensors'][1]['value']
-        self._data['co2'] = data[-1]['sensors'][2]['value']
-        self._data['voc'] = data[-1]['sensors'][3]['value']
-        if self._type != 'awair-glow':   #Glow doesn't have dust sensor so failing
-            self._data['dust'] = data[-1]['sensors'][4]['value']
+        self._data['score'] = data['Sensors']['Quality']
+        self._data['temp'] = data['Sensors']['Temperature']
+        self._data['humid'] = data['Sensors']['Humidity']
+        self._data['co'] = data['Sensors']['CO']
         self._last_update = datetime.datetime.now()  # records the time of the last update
