@@ -2,12 +2,16 @@ from unittest import TestCase
 from pybridair.auth import *
 from pybridair.data import *
 
-auth = BridAuth('10.101.0.124')
+
+
+
+auth = BridAuth('10.101.30.42')
 
 class TestGetStatus(TestCase):
     """
     Test pybrid.data.get_status function against live Brid device
     """
+
 
     def test_get_current_air(self):
         """
