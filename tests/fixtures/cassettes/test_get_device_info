@@ -1,0 +1,35 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-encoding:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://10.101.30.42/info
+  response:
+    body:
+      string: '{"Model": "Brid Air Purifier","Serial Number": "18191000138","Manufacturer":
+        "Atellani","Version": "1.2"}'
+    headers:
+      Connection:
+      - close
+      Content-Type:
+      - application/json
+      Pragma:
+      - no-cache
+      Server:
+      - Marvell-WM
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+version: 1

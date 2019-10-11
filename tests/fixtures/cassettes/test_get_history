@@ -1,0 +1,32 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-encoding:
+      - application/json
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://10.101.30.42/history
+  response:
+    body:
+      string: '[{"t":1570825771,"V":1933.09,"T":26.98,"H":33,"C":7},{"t":1570825591,"V":1901.97,"T":27.07,"H":32,"C":7},{"t":1570825412,"V":1884.64,"T":27.16,"H":33,"C":7},{"t":1570825232,"V":1862.18,"T":27.19,"H":33,"C":8},{"t":1570825053,"V":1927.91,"T":27.14,"H":32,"C":8},{"t":1570824873,"V":1851.82,"T":27.25,"H":32,"C":8},{"t":1570824694,"V":1941.22,"T":27.89,"H":31,"C":7},{"t":1561233138,"V":1862.87,"T":28.44,"H":31,"C":9}]'
+    headers:
+      Connection:
+      - close
+      Content-Type:
+      - application/json
+      Server:
+      - Marvell-WM
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+version: 1

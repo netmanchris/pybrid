@@ -1,7 +1,14 @@
 from unittest import TestCase
 from pybridair.auth import *
 from pybridair.data import *
+import vcr
 
+my_vcr = vcr.VCR(
+    serializer='json',
+    cassette_library_dir='./test_pyhpecfm/fixtures/cassettes',
+    record_mode='new_episodes',
+    match_on=['uri', 'method'],
+)
 
 
 
@@ -12,7 +19,7 @@ class TestGetStatus(TestCase):
     Test pybrid.data.get_status function against live Brid device
     """
 
-
+    @vcr.use_cassette(cassette_library_dir='./tests/fixtures/cassettes')
     def test_get_current_air(self):
         """
         Tests pybrid.data.get_status function against live Brid device
@@ -30,6 +37,7 @@ class TestGetHistory(TestCase):
     Test pybrid.data.get_status function against live Brid device
     """
 
+    @vcr.use_cassette(cassette_library_dir='./tests/fixtures/cassettes')
     def test_get_history(self):
         """
         Tests pybrid.data.get_history function against live Brid device
