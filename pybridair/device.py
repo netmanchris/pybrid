@@ -10,7 +10,6 @@ def get_device_info(auth):
     data = pybridair.conn.get_data(auth, base_url, data_url)
     return data
 
-
 def set_device_mode(auth, mode):
     modes = {"off" : 0,
              'smart' : 1,
